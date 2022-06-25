@@ -16,7 +16,7 @@
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container px-5">
-                <a class="navbar-brand" href="#!">Sure Repair center</a>
+                <a class="navbar-brand" href="#!">Sure Repair center  @{{current_user.username}}</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -47,14 +47,36 @@
 <!--                <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." /></div>-->
                 <div class="col-lg-5">
                     <h1 class="font-weight-light">Get your device repaired</h1>
-                    <p>click on the button below to book repair</p>
+                    <p><h3>click on the button below to book repair</h3></p>
                     <a class="btn btn-primary" href="{{url_for('book_repair')}}">Book Repair</a>
                 </div>
             </div>
             <!-- Call to Action-->
             <div class="card text-white bg-secondary my-5 py-4 text-center">
-                <div class="card-body"><p class="text-white m-0">This call to action card is a great place to showcase some important information or display a clever tagline!</p></div>
+                <div class="card-header">My devices</div>
+                <div class="card-body"><p class="text-white m-0">
+                    <table class="table">
+                         <tr>
+
+                             <th>Name</th>
+                             <th>Model</th>
+                             <th>status</th>
+                         </tr>
+                    {%for device in devices %}
+                         <tr>
+                             <td>{{device.name}}</td>
+                             <td>{{device.model}}</td>
+                             <td>{{device.status}}</td>
+                         </tr>
+                    {%endfor%}
+                </table>
+                </p></div>
             </div>
+            <hr>
+            <p><h3><i>are you a tchnician and would like to work with us?</i></h3>
+             <a href="" class="btn btn-warning">request rights</a>
+            </p>
+
             <!-- Content Row-->
 
             <div class="row gx-4 gx-lg-5">
@@ -74,7 +96,7 @@
                         <div class="card-body">
                             <h2 class="card-title">Woofer & sub woofers</h2>
                             <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="{{url_for('static',filename='radio.jpg')}}" alt="..." /></div>
-                            <p class="card-text">ex natus at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates quos eligendi labore.</p>
+                            <p class="card-text">All related problems including,<strong>no power</strong>,<strong>sound problem</strong>,<strong>and others</strong></p>
                         </div>
                         <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
                     </div>
@@ -83,8 +105,8 @@
                     <div class="card h-100">
                         <div class="card-body">
                             <h2 class="card-title">mobile phones</h2>
-                            <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="{{url_for('static',filename='laptop.jpg')}}" alt="..." /></div>
-                            <p class="card-text">All types of latptops repair</p>
+                            <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="{{url_for('static',filename='phone.jpg')}}" alt="..." /></div>
+                            <p class="card-text">All related phone problems including,<strong>no power</strong>,<strong>sound problem</strong>,<strong>and others</strong></p>
                         </div>
                         <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">More Info</a></div>
                     </div>

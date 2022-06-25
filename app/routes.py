@@ -46,7 +46,8 @@ def welcome():
 @app.route('/index',methods=['GET','POST'])
 @login_required
 def index():
-    return render_template('index.html')
+    devices=Device.query.filter_by(user_id=current_user.id)
+    return render_template('index.html',devices=devices)
 
 
 #book repair route
