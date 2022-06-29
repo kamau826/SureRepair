@@ -68,6 +68,12 @@ def book_repair():
     return render_template('booking_repair.html')
 
 
+@app.route('/view_device/<int:id>',methods=['GET','POST'])
+@login_required
+def view_device(id):
+    device=Device.query.get(id)
+    return render_template('view_device.html',device=device)
+
 
 
 
