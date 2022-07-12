@@ -74,6 +74,12 @@ def view_device(id):
     device=Device.query.get(id)
     return render_template('view_device.html',device=device)
 
+@app.route('/technician',methods=['GET','POST'])
+@login_required
+def technician():
+    devices=Device.query.all()
+    return render_template('technician.html',devices=devices)
+
 
 
 
