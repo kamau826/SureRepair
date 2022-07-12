@@ -19,7 +19,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{url_for('index')}}">Home</a></li>
 <!--                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>-->
 <!--                        <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>-->
 <!--                        <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>-->
@@ -31,11 +31,14 @@
         <div class="container px-4 px-lg-5">
             <!-- Heading Row-->
             <div class="row gx-4 gx-lg-5 align-items-center my-5">
-                <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="{{url_for('static',filename='pic1.jpg')}}" alt="..." /></div>
+<!--                <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="{{url_for('static',filename='pic1.jpg')}}" alt="..." /></div>-->
                 <div class="col-lg-5">
                     <h1 class="font-weight-light">{{device.name}}</h1>
                     <p>owner:{{device.user.username}}</p>
                     <p>Fault: {{device.fault}}</p>
+
+                                  <span class="badge badge-info">{{device.status}}</span>
+
                     <a class="btn btn-primary" href="{{url_for('login')}}">login</a>
                 </div>
             </div>
