@@ -81,6 +81,17 @@ def technician():
     return render_template('technician.html',devices=devices)
 
 
+@app.route('/start_repair/<int:id>')
+def start_repair(id):
+    device=Device.query.get(id)
+    if device.status=='booked':
+        device.status="under repair"
+    else:
+        device.status='repair complete'
+    db.session.commit()
+    return redirect(url_for('view_device',id=id))
+
+
 
 
 
