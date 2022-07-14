@@ -23,7 +23,9 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{url_for('technician')}}">Technician</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
+                        {% if current_user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{{url_for('logout')}}">logout</a></li>
+                        {%endif%}
                     </ul>
                 </div>
             </div>
@@ -52,33 +54,33 @@
                 </div>
             </div>
             <!-- Call to Action-->
-            <div class="card text-white bg-secondary my-5 py-4 text-center">
-                <div class="card-header">My devices</div>
-                <div class="card-body"><p class="text-white m-0">
-                    <table class="table">
+<!--            <div class="card text-white bg-secondary my-2 py-4 text-center">-->
+<!--                <div class="card-header">My devices</div>-->
+<!--                <p>click open to view the status of your device</p>-->
+<!--                <div class="card-body"><p class="text-white m-0">-->
+<!--                </p></div>-->
+
+<!--            </div>-->
+              <table class="table">
                          <tr>
 
                              <th>Name</th>
                              <th>Model</th>
-                             <th>status</th>
+<!--                             <th>status</th>-->
                              <th>action</th>
                          </tr>
                     {%for device in devices %}
                          <tr>
                              <td>{{device.name}}</td>
                              <td>{{device.model}}</td>
-                             {%if device.status=='booked'%}
-                                  <td><span class="badge badge-info">{{device.status}}</span></td>
-                             {% endif %}
+
                              <td>
                                <a href="{{url_for('view_device',id=device.id)}}" class="btn btn-warning sm">open</a>
                              </td>
                          </tr>
                     {%endfor%}
-                    
+
                 </table>
-                </p></div>
-            </div>
             <hr>
             <p><h3><i>are you a technician and would like to work with us?</i></h3>
              <a href="" class="btn btn-warning">request rights</a>
