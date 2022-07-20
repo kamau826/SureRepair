@@ -31,7 +31,7 @@ class Device(db.Model):
     fault=db.Column(db.String(255))
     device_key=db.Column(db.String(255))
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
-    repair_price=db.Column(db.Integer(),default=0)
+    repair_price=db.Column(db.Integer())
     status=db.Column(db.String(100),default='booked')
     tech_resolution=db.Column(db.String(255),default='none')
 
