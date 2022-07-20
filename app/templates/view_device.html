@@ -39,9 +39,9 @@
                     <p>Fault: {{device.fault}}</p>
                   <p>Status <span class="badge badge-info">{{device.status}}</span><p></p>
                      {% if device.status=='booked' and device.status!='repair complete'%}
-                    <a class="btn btn-primary sm" href="{{url_for('start_repair',id=device.id)}}">start repair</a>
+                    <a class="btn btn-primary sm" href="{{url_for('start_repair',dvk=device.device_key)}}">start repair</a>
                     {%else%}
-                    <a class="btn btn-warning sm" href="{{url_for('start_repair',id=device.id)}}">end repair</a>
+                    <a class="btn btn-warning sm" href="{{url_for('start_repair',dvk=device.device_key)}}">end repair</a>
                     {%endif%}
                 </div>
             </div>
