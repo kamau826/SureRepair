@@ -78,7 +78,7 @@ def book_repair():
 @app.route('/view_device/<dvk>',methods=['GET','POST'])
 @login_required
 def view_device(dvk):
-    device=Device.query.filter_by(device_key=dvk)
+    device=Device.query.filter_by(device_key=dvk).first()
     return render_template('view_device.html',device=device)
 
 @app.route('/technician/<usk>',methods=['GET','POST'])
@@ -88,15 +88,15 @@ def technician(usk):
     return render_template('technician.html',devices=devices)
 
 
-@app.route('/start_repair/<int:id>')
-def start_repair(id):
-    device=Device.query.get(id)
+@app.route('/start_repair/<dvk>')
+def start_repair(dvk):
+    device=Device.query.filter_by(device_key=dvk).first()
     if device.status=='booked':
         device.status="under repair"
     else:
         device.status='repair complete'
     db.session.commit()
-    return redirect(url_for('view_device',id=id))
+    return redirect(url_for('view_device',dvk=device.device_key))
 
 
 
