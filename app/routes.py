@@ -93,13 +93,26 @@ def start_repair(dvk):
     device=Device.query.filter_by(device_key=dvk).first()
     if device.status=='booked':
         device.status="under repair"
-    else:
-        device.status='repair complete'
-    db.session.commit()
+        db.session.commit()
     return redirect(url_for('view_device',dvk=device.device_key))
 
 
+@app.route('/end_repair/<dvk>',methods=['GET','POST'])
+@login_required
+def end_repair(dvk):
 
+    device=Device.query.filter_by(device_key=dvk).first()
+    
+    if request.method=='POST':
+
+        
+        device.tech_resolution=request.form['tech_resolution']
+        device.repair_price= request.form['repair_price']
+        
+        device.status='repair complete'
+        db.session.add(device)
+        db.session.commit()
+    return redirect(url_for('view_device',dvk=dvk))
 
 
 
