@@ -4,6 +4,8 @@ from app.models import User,Device
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import current_user,login_user,logout_user,login_required
 from datetime import date
+import string
+import secrets
 
 loginmanager.login_view='login'
 
@@ -14,7 +16,10 @@ def register():
         user=User.query.filter_by(username=request.form['username'])
         # if user:
         #     flash("username already taken")
-        user=User(username=request.form['username'],email=request.form['email'],password=generate_password_hash(request.form['password']),is_admin=False,phone=request.form['phone'])
+        alphabet = string.ascii_letters + string.digits
+        user_key = ''.join(secrets.choice(alphabet) for i in range(32))
+        user=User(username=request.form['username'],email=request.form['email'],password=generate_password_hash(request.form['password']),
+                   is_admin=False,phone=request.form['phone'],user_key=user_key)
         db.session.add(user)
         db.session.commit()
         flash('registration successful')
@@ -55,11 +60,13 @@ def index():
 @login_required
 def book_repair():
     if request.method == 'POST':
+        alphabet = string.ascii_letters + string.digits
+        device_key = ''.join(secrets.choice(alphabet) for i in range(32))
         name=request.form['device_name']
         model=request.form['model']
         fault=request.form['fault']
         user_id=current_user.id
-        device=Device(name=name,model=model,fault=fault,user_id=user_id)
+        device=Device(name=name,model=model,fault=fault,user_id=user_id,device_key=device_key)
         db.session.add(device)
         db.session.commit()
         flash('device booked successfully')
@@ -68,15 +75,15 @@ def book_repair():
     return render_template('booking_repair.html')
 
 
-@app.route('/view_device/<int:id>',methods=['GET','POST'])
+@app.route('/view_device/<dvk>',methods=['GET','POST'])
 @login_required
-def view_device(id):
-    device=Device.query.get(id)
+def view_device(dvk):
+    device=Device.query.filter_by(device_key=dvk)
     return render_template('view_device.html',device=device)
 
-@app.route('/technician',methods=['GET','POST'])
+@app.route('/technician/<usk>',methods=['GET','POST'])
 @login_required
-def technician():
+def technician(usk):
     devices=Device.query.all()
     return render_template('technician.html',devices=devices)
 
