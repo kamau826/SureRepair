@@ -34,5 +34,6 @@ class Device(db.Model):
     repair_price=db.Column(db.Integer())
     status=db.Column(db.String(100),default='booked')
     tech_resolution=db.Column(db.String(255),default='none')
+    device_image=db.Column(db.String(255))
 
 
