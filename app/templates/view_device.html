@@ -32,13 +32,13 @@
         <div class="container px-4 px-lg-5">
             <!-- Heading Row-->
             <div class="row gx-4 gx-lg-5 align-items-center my-5">
-                <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="{{url_for('static',filename='pic1.jpg')}}" alt="..." /></div>
+                <div class="col-lg-4"><img class="img-fluid rounded mb-4 mb-lg-0" src="{{device_image}}" alt="..." /></div>
                 <div class="col-lg-5">
                     <h1 class="font-weight-light">{{device.name}}</h1>
                     <p>owner:{{device.user.username}}</p>
                     <p>Fault: {{device.fault}}</p>
                   <p>Status <span class="badge badge-info">{{device.status}}</span><p></p>
-                     {% if device.status=='booked' and device.status!='repair complete'%}
+                     {% if device.status=='booked' and device.status!='repair complete' and current_user.is_technician%}
                     <a class="btn btn-warning sm" href="{{url_for('start_repair',dvk=device.device_key)}}">start repair</a>
                     {%elif device.status == 'under repair'%}
                     <div class="dropdown">
