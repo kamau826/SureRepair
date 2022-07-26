@@ -26,7 +26,7 @@
 
             <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
 
-              <form style="width: 23rem;" action="{{url_for('book_repair')}}" method="post">
+              <form style="width: 23rem;" action="{{url_for('book_repair')}}" method="post" enctype="mulyipart/form-data">
 
                 <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Book repair</h3>
 
@@ -42,6 +42,10 @@
                   <div class="form-outline mb-4">
                   <input type="text" name="fault" id="form2Example29" class="form-control form-control-lg" placeholder="problem"/>
                   <label class="form-label" for="form2Example28">Fault</label>
+                </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label">upload picture of the device </label>
+                  <input type="file" name="device_image" class="form-control" placeholder="Upload device image">
                 </div>
 
                 <div class="pt-1 mb-4">

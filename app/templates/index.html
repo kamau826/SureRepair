@@ -22,7 +22,9 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        {%if current_user.is_technician %}
                         <li class="nav-item"><a class="nav-link" href="{{url_for('technician',usk=current_user.user_key)}}">Technician</a></li>
+                        {%endif %}
                         {% if current_user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link" href="{{url_for('logout')}}">logout</a></li>
                         {%endif%}
