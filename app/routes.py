@@ -7,6 +7,22 @@ from datetime import date
 import string
 import secrets
 import os
+import smtplib
+from flask_mail import Mail, Message
+
+
+mail_config = {
+    "MAIL_SERVER": 'smtp.office365.com',
+    "MAIL_PORT": 587,
+    "MAIL_USE_TLS": True,
+    "MAIL_USE_SSL": False,
+    "MAIL_USERNAME": "kamaujay@outlook.com",
+    "MAIL_PASSWORD": "JahKam123?" 
+}
+
+
+app.config.update(mail_config)
+mail = Mail(app)
 
 
 UPLOAD_FOLDER = 'app/static/img'
@@ -127,10 +143,12 @@ def end_repair(dvk):
     if request.method=='POST':
         device.tech_resolution=request.form['tech_resolution']
         device.repair_price= request.form['repair_price']
-        
         device.status='repair complete'
         db.session.add(device)
         db.session.commit()
+        recipients =["kamau4542@gmail.com"]
+        message = Message(body='Device Repaired', recipients=recipients, sender='kamaujay@outlook.com')
+        mail.send(message)
     return redirect(url_for('view_device',dvk=dvk))
 
 
