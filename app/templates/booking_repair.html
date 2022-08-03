@@ -26,22 +26,25 @@
 
             <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
 
-              <form style="width: 23rem;" action="{{url_for('book_repair')}}" method="post" enctype="multipart/form-data">
+              <form style="width: 23rem;" action="{{url_for('book_repair')}}" method="post" enctype="multipart/form-data" novalidate>
 
                 <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Book repair</h3>
 
                 <div class="form-outline mb-4">
-                  <input type="text"  name="device_name" id="form2Example18" class="form-control form-control-lg" placeholder="device name"/>
-                  <label class="form-label" for="form2Example18">Device name eg tv</label>
+                   <label class="form-label" for="form2Example18">Device name eg tv</label>
+                  <input type="text"  name="device_name" id="form2Example18" class="form-control form-control-lg" placeholder="device name" required />
+                 
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="text" name="model" id="form2Example28" class="form-control form-control-lg" placeholder="device model" />
                   <label class="form-label" for="form2Example28">Model</label>
+                  <input type="text" name="model" id="form2Example28" class="form-control form-control-lg" placeholder="device model" required />
+                  
                 </div>
                   <div class="form-outline mb-4">
-                  <input type="text" name="fault" id="form2Example29" class="form-control form-control-lg" placeholder="problem"/>
-                  <label class="form-label" for="form2Example28">Fault</label>
+                     <label class="form-label" for="form2Example28">Fault</label>
+                  <input type="text" name="fault" id="form2Example29" class="form-control form-control-lg" placeholder="problem" required/>
+                 
                 </div>
                 <div class="form-outline mb-4">
                   <label class="form-label">upload picture of the device </label>

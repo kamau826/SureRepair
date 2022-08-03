@@ -45,6 +45,8 @@
                          <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     end repair
                                 </button>
+                                <br>
+
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <form class="form" action="{{url_for('end_repair',dvk=device.device_key)}}" method="POST">
                                       <div class="form-group">
@@ -66,6 +68,7 @@
                     </div>
                     <!-- <a class="btn btn-warning sm" href="{{url_for('start_repair',dvk=device.device_key)}}">end repair</a> -->
                     {%endif%}
+                     <a href="{{url_for('delete_device',dvk=device.device_key)}}" class="btn btn-sucess">delete</a>
                 </div>
             </div>
             <!-- Call to Action-->

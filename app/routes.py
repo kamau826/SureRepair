@@ -106,7 +106,7 @@ def book_repair():
             db.session.commit()
 
             flash('device booked successfully')
-            redirect(url_for('index'))
+            return redirect(url_for('index'))
 
     return render_template('booking_repair.html')
 
@@ -118,11 +118,16 @@ def view_device(dvk):
     device_image = url_for('static', filename='deviceimg/' + device.device_image)
     return render_template('view_device.html',device=device, device_image=device_image)
 
+
+#tecnicin page
 @app.route('/technician/<usk>',methods=['GET','POST'])
 @login_required
 def technician(usk):
     devices=Device.query.all()
-    return render_template('technician.html',devices=devices)
+    # for device in devices:
+        # device_image = url_for('static', filename='deviceimg/' + device.device_image)
+
+    return render_template('tech3.html',devices= devices)
 
 
 @app.route('/start_repair/<dvk>')
@@ -139,23 +144,37 @@ def start_repair(dvk):
 def end_repair(dvk):
 
     device=Device.query.filter_by(device_key=dvk).first()
-    
+    email=device.user.email
+   
     if request.method=='POST':
         device.tech_resolution=request.form['tech_resolution']
         device.repair_price= request.form['repair_price']
         device.status='repair complete'
         db.session.add(device)
         db.session.commit()
-        recipients =["kamau4542@gmail.com"]
-        message = Message(body='Device Repaired', recipients=recipients, sender='kamaujay@outlook.com')
+        recipients =[email]
+       
+        body=device.status + '' + device.tech_resolution + '' + 'device.repair_price' + 'kindly make payment via 0796199724'
+        message = Message(body=body, recipients=recipients, sender='kamaujay@outlook.com')
         mail.send(message)
     return redirect(url_for('view_device',dvk=dvk))
 
 
 
+@app.route('/delete_device/<dvk>')
+@login_required
+def delete_device(dvk):
+    device = Device.query.filter_by(device_key=dvk).first()
+    db.session.delete(device)
+    return redirect(url_for('index'))
 
-
-
+@app.route('/make_technician/<usk>')
+@login_required
+def make_technician(usk):
+    user=User.query.filter_by(user_key=usk)
+    user.is_tecnician=1
+    db.session.add(user)
+    return rediect(url_for('index'))
 
 
 
