@@ -124,8 +124,8 @@ def view_device(dvk):
 @login_required
 def technician(usk):
     devices=Device.query.all()
-    # for device in devices:
-        # device_image = url_for('static', filename='deviceimg/' + device.device_image)
+    for device in devices:
+        device.device_image = url_for('static', filename='deviceimg/' + device.device_image)
 
     return render_template('tech3.html',devices= devices)
 
@@ -154,7 +154,7 @@ def end_repair(dvk):
         db.session.commit()
         recipients =[email]
        
-        body=device.status + '' + device.tech_resolution + '' + 'device.repair_price' + 'kindly make payment via 0796199724'
+        body= f"{device.status} {device.tech_resolution} at a cost of {device.repair_price} \n kindly make payment via 0796199724"
         message = Message(body=body, recipients=recipients, sender='kamaujay@outlook.com')
         mail.send(message)
     return redirect(url_for('view_device',dvk=dvk))
