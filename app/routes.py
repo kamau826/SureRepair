@@ -9,6 +9,7 @@ import secrets
 import os
 import smtplib
 from flask_mail import Mail, Message
+import flask_excel as excel
 
 
 mail_config = {
@@ -161,6 +162,14 @@ def end_repair(dvk):
 
 
 
+@app.route("/export", methods=['GET'])
+def export():
+    query_sets= Device.query.all()
+    column_names = ['id', 'name']
+    return excel.make_response_from_query_sets(query_sets, column_names, "xlsx")
+    return redirect(url_for('home'))
+
+
 @app.route('/delete_device/<dvk>')
 @login_required
 def delete_device(dvk):
@@ -168,15 +177,22 @@ def delete_device(dvk):
     db.session.delete(device)
     return redirect(url_for('index'))
 
+
 @app.route('/make_technician/<usk>')
 @login_required
 def make_technician(usk):
     user=User.query.filter_by(user_key=usk)
     user.is_tecnician=1
     db.session.add(user)
-    return rediect(url_for('index'))
+    return redirect(url_for('index'))
 
 
+
+
+@app.route('/admin/<usk>')
+@login_required
+def admin(usk):
+    return render_template('admin.html')
 
 
 
@@ -194,4 +210,4 @@ def make_technician(usk):
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('login'))
+    return redirect(url_for('login'))  
